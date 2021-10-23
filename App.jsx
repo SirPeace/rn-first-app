@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { AddGoalForm } from './components/AddGoalForm';
+import { AddGoalModal } from './components/AddGoalModal';
 import { Goal } from './components/Goal';
 
 export default function App() {
   const [goals, setGoals] = useState([])
+  const [isAddGoalModalOpened, setIsAddGoalModalOpened] = useState(false)
 
   const deleteGoal = goalId => {
     const filteredGoals = goals.filter(goal =>
@@ -18,8 +19,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <AddGoalForm
+      <Button
+        title="Add a task"
+        onPress={setIsAddGoalModalOpened.bind(this, true)}
+      />
+
+      <AddGoalModal
+        visible={isAddGoalModalOpened}
         addGoal={newGoal => setGoals(goals => [...goals, newGoal])}
+        closeModal={setIsAddGoalModalOpened.bind(this, false)}
       />
 
       {goals.length > 0 ? (
