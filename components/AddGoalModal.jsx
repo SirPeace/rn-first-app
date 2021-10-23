@@ -19,12 +19,13 @@ export const AddGoalModal = ({ addGoal, visible, closeModal }) => {
   }
 
   return (
-    <Modal visible={visible} animationType="slide">
+    // statusBarTranslucent fixes an issue of modal not being full height on Android
+    <Modal visible={visible} animationType="slide" statusBarTranslucent={true}>
       <View style={{ alignItems: 'center', flex: 1 }}>
         <View style={styles.addGoalForm}>
           <TextInput
             style={styles.addGoalInput}
-            value={ form.goal }
+            value={form.goal}
             placeholder="New goal"
             onChangeText={text => setForm({ goal: text })}
           />
@@ -32,13 +33,13 @@ export const AddGoalModal = ({ addGoal, visible, closeModal }) => {
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, marginRight: 10 }}>
               <Button
-                title="CLOSE"
+                title="Close"
                 color="gray"
                 onPress={closeModal}
               />
             </View>
             <View style={{ flex: 1 }}>
-             <Button title="ADD" onPress={submitHandler} />
+             <Button title="Add" onPress={submitHandler} />
             </View>
           </View>
         </View>

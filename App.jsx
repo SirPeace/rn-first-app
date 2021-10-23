@@ -20,7 +20,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Button
-        title="Add a task"
+        title="Add a goal"
         onPress={setIsAddGoalModalOpened.bind(this, true)}
       />
 
@@ -57,6 +57,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     padding: 30,
-    paddingTop: 60,
+    paddingTop: 75,
   }
 });
