@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { AddGoalForm } from './components/AddGoalForm';
 import { Goal } from './components/Goal';
@@ -27,11 +27,12 @@ export default function App() {
           style={{ marginVertical: 15 }}
           data={goals}
           renderItem={dataItem =>
-            <Goal
-              goal={dataItem.item}
-              onTouchEnd={() => deleteGoal(dataItem.item.id)}
-              style={{ marginTop: dataItem.index === 0 ? 0 : 10 }}
-            />
+            <TouchableOpacity onPress={() => deleteGoal(dataItem.item.id)}>
+              <Goal
+                goal={dataItem.item}
+                style={{ marginTop: dataItem.index === 0 ? 0 : 10 }}
+              />
+            </TouchableOpacity>
           }
         />
       ) : (
