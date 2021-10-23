@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { AddGoalForm } from './components/AddGoalForm';
 import { Goal } from './components/Goal';
@@ -22,23 +22,23 @@ export default function App() {
         addGoal={newGoal => setGoals(goals => [...goals, newGoal])}
       />
 
-      <ScrollView style={{ marginVertical: 15 }}>
-        {goals.length !== 0
-          ? goals.map((goal, index) =>
+      {goals.length > 0 ? (
+        <FlatList
+          style={{ marginVertical: 15 }}
+          data={goals}
+          renderItem={dataItem =>
             <Goal
-              key={goal.id}
-              goal={goal}
-              onTouchEnd={() => deleteGoal(goal.id)}
-              style={{ marginTop: index === 0 ? 0 : 10 }}
+              goal={dataItem.item}
+              onTouchEnd={() => deleteGoal(dataItem.item.id)}
+              style={{ marginTop: dataItem.index === 0 ? 0 : 10 }}
             />
-          )
-          : (
-            <Text style={{ color: 'gray', marginTop: 10, textAlign: 'center' }}>
-              No active goals
-            </Text>
-          )
-        }
-      </ScrollView>
+          }
+        />
+      ) : (
+        <Text style={{ color: 'gray', marginTop: 10, textAlign: 'center' }}>
+          No active goals
+        </Text>
+      )}
 
       <StatusBar style="auto" />
     </View>
